@@ -30,10 +30,7 @@ public class LocationService : ILocationService
 
     public async Task<Location?> Get(float latitude, float longitude)
     {
-        if (longitude < -180 || longitude > 180)
-            throw new ArgumentOutOfRangeException(nameof(longitude), "Longitude must be between -180 and 180 degrees.");
-        if (latitude < -90 || latitude > 90)
-            throw new ArgumentOutOfRangeException(nameof(latitude), "Latitude must be between -90 and 90 degrees.");
+        LocationValidator.ValidateCoordinates(latitude, longitude);
 
         return await _dbContext.Locations
             .Include(l => l.Forecasts)
@@ -42,9 +39,16 @@ public class LocationService : ILocationService
 
     public async Task<Location> Create(float latitude, float longitude)
     {
+        LocationValidator.ValidateCoordinates(latitude, longitude);
+
+        var location = await Get(latitude, longitude);
+
+        if (location != null)
+            return location;
+
         var forecasts = await _weatherProvider.GetForecasts(latitude, longitude);
 
-        var location = new Location
+        location = new Location
         {
             Latitude = latitude,
             Longitude = longitude,

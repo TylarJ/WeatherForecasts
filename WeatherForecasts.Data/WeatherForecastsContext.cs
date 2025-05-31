@@ -17,5 +17,13 @@ public class WeatherForecastsContext : DbContext
             .HasMany(l => l.Forecasts)
             .WithOne(f => f.Location)
             .HasForeignKey(f => f.LocationId);
+
+        modelBuilder.Entity<Location>()
+            .HasIndex(l => new { l.Latitude, l.Longitude })
+            .IsUnique();
+
+        modelBuilder.Entity<Forecast>()
+            .HasIndex(f => f.Date)
+            .IsUnique();
     }
 }

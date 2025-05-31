@@ -19,6 +19,8 @@ public class ForecastController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<Location>> Get([FromQuery] LocationRequest location)
     {
+        LocationValidator.ValidateCoordinates(location.Latitude, location.Longitude);
+
         var result = await _forecastService.Get(location.Latitude, location.Longitude);
 
         return Ok(result);
