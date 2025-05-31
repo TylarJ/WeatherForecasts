@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using WeatherForecasts.Common;
 using WeatherForecasts.Services.Abstractions;
 using WeatherForecasts.Web.Models;
@@ -27,7 +26,7 @@ public class LocationsController : ControllerBase
                 {
                     return StatusCode(500, "Internal server error: " + task.Exception?.Message);
                 }
-                if (task.Result == null || !task.Result.Any())
+                if (task.Result == null)
                 {
                     return NotFound("No locations found.");
                 }
@@ -88,10 +87,11 @@ public class LocationsController : ControllerBase
             });
     }
 
-    [HttpDelete]
-    public IActionResult Delete([FromQuery] LocationRequest location)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        // TODO: Delete specified location
-        return Ok();
+        await _locationService.Delete(id);
+
+        return NoContent();
     }
 }

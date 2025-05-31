@@ -8,4 +8,5 @@ public interface ILocationService
     Task<IEnumerable<Location>> GetAll();
     Task<Location?> Get(float latitude, float longitude);
     Task<Location?> Get(int id);
+    Task Delete(int id);
 }

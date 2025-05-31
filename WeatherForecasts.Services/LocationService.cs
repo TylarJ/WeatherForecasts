@@ -8,10 +8,12 @@ namespace WeatherForecasts.Services;
 public class LocationService : ILocationService
 {
     private readonly WeatherForecastsContext _dbContext;
+    private readonly IWeatherProvider _weatherProvider;
 
-    public LocationService(WeatherForecastsContext dbContext)
+    public LocationService(WeatherForecastsContext dbContext, IWeatherProvider weatherProvider)
     {
         _dbContext = dbContext;
+        _weatherProvider = weatherProvider;
     }
 
     public async Task<IEnumerable<Location>> GetAll()
@@ -40,15 +42,29 @@ public class LocationService : ILocationService
 
     public async Task<Location> Create(float latitude, float longitude)
     {
+        var forecasts = await _weatherProvider.GetForecasts(latitude, longitude);
+
         var location = new Location
         {
             Latitude = latitude,
-            Longitude = longitude
+            Longitude = longitude,
+            Forecasts = forecasts
         };
 
         _dbContext.Locations.Add(location);
         await _dbContext.SaveChangesAsync();
 
         return location;
+    }
+
+    public async Task Delete(int id)
+    {
+        var location = await Get(id);
+        
+        if (location == null)
+            throw new KeyNotFoundException($"Location with ID {id} not found.");
+
+        _dbContext.Locations.Remove(location);
+        await _dbContext.SaveChangesAsync();
     }
 }
