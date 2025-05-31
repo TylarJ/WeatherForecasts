@@ -11,6 +11,7 @@ public static class IServiceCollectionExtensions
     {
         return services
             .AddSingleton<IForecastService, ForecastService>()
+            .AddHttpClient()
             .Configure<OpenMeteoConfiguration>(config.GetSection(nameof(OpenMeteoConfiguration)));
     }
 }

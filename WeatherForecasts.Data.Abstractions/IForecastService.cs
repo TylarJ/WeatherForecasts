@@ -2,5 +2,5 @@
 
 public interface IForecastService
 {
-    void Get(float latitude, float longitude);
+    Task Get(float latitude, float longitude);
 }

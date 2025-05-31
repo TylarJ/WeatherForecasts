@@ -22,9 +22,9 @@ namespace WeatherForecasts.Web.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            _service.Get(0, 0);
+            await _service.Get(52.52f, 13.41f);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
