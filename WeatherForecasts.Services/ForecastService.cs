@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
+using WeatherForecasts.Common;
 using WeatherForecasts.Data.Abstractions;
 using WeatherForecasts.Services.Configuration;
 using WeatherForecasts.Services.Models;
@@ -9,7 +10,7 @@ namespace WeatherForecasts.Services;
 public class ForecastService : IForecastService
 {
     private readonly OpenMeteoConfiguration _config;
-    private static HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
 
     public ForecastService(IOptions<OpenMeteoConfiguration> config, IHttpClientFactory httpClientHandler)
     {
@@ -19,7 +20,7 @@ public class ForecastService : IForecastService
         _httpClient = httpClientHandler.CreateClient("OpenMeteoClient");
     }
 
-    public async Task Get(float latitude, float longitude)
+    public async Task<Location> Get(float latitude, float longitude)
     {
         if (latitude < -90 || latitude > 90)
             throw new ArgumentOutOfRangeException(nameof(latitude), "Latitude must be between -90 and 90 degrees.");
@@ -30,6 +31,24 @@ public class ForecastService : IForecastService
 
         using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
         using var responseMessage = await _httpClient.SendAsync(requestMessage);
-        var response = await responseMessage.Content.ReadFromJsonAsync<ForecastResponse>();
+        var response = await responseMessage.Content.ReadFromJsonAsync<ForecastResponse>()
+            ?? throw new HttpRequestException("Failed to retrieve forecast data.");
+
+        var forecasts = response.hourly?.time != null && response.hourly.temperature_2m != null
+            ? [.. response.hourly.time
+                .Select((t, i) => new Forecast
+                {
+                    Date = DateTime.Parse(t),
+                    TemperatureCelsius = response.hourly.temperature_2m[i]
+                })]
+            : new List<Forecast>();
+
+
+        return new Location
+        {
+            Latitude = response.latitude,
+            Longitude = response.longitude,
+            Forecasts = forecasts
+        };
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace WeatherForecasts.Data.Abstractions;
+﻿using WeatherForecasts.Common;
+
+namespace WeatherForecasts.Data.Abstractions;
 
 public interface IForecastService
 {
-    Task Get(float latitude, float longitude);
+    Task<Location> Get(float latitude, float longitude);
 }
