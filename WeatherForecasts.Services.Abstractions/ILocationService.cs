@@ -9,4 +9,5 @@ public interface ILocationService
     Task<Location?> Get(float latitude, float longitude);
     Task<Location?> Get(int id);
     Task Delete(int id);
+    Task<Location?> Update(int id);
 }

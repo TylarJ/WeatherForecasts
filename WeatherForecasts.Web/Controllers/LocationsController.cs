@@ -23,13 +23,11 @@ public class LocationsController : ControllerBase
             .ContinueWith(task =>
             {
                 if (task.IsFaulted)
-                {
-                    return StatusCode(500, "Internal server error: " + task.Exception?.Message);
-                }
+                    return ReturnError(task);
+
                 if (task.Result == null)
-                {
                     return NotFound("No locations found.");
-                }
+
                 return Ok(task.Result);
             });
     }
@@ -41,14 +39,11 @@ public class LocationsController : ControllerBase
             .ContinueWith(task =>
             {
                 if (task.IsFaulted)
-                {
-                    return StatusCode(500, "Internal server error: " + task.Exception?.Message);
-                }
+                    return ReturnError(task);
 
                 if (task.Result == null)
-                {
                     return NotFound("Location not found.");
-                }
+
                 return Ok(task.Result);
             });
     }
@@ -60,14 +55,11 @@ public class LocationsController : ControllerBase
             .ContinueWith(task =>
             {
                 if (task.IsFaulted)
-                {
-                    return StatusCode(500, "Internal server error: " + task.Exception?.Message);
-                }
+                    return ReturnError(task);
 
                 if (task.Result == null)
-                {
                     return NotFound("Location not found.");
-                }
+
                 return Ok(task.Result);
             });
     }
@@ -79,11 +71,25 @@ public class LocationsController : ControllerBase
             .ContinueWith(task =>
             {
                 if (task.IsFaulted)
-                {
-                    return StatusCode(500, "Internal server error: " + task.Exception?.Message);
-                }
+                    return ReturnError(task);
 
                 return CreatedAtAction(nameof(GetByLocation), new { latitude = location.Latitude, longitude = location.Longitude }, task.Result);
+            });
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Location>> Put(int id)
+    {
+        return await _locationService.Update(id)
+            .ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                    return ReturnError(task);
+
+                if (task.Result == null)
+                    return NotFound("Location not found.");
+
+                return Ok(task.Result);
             });
     }
 
@@ -93,5 +99,10 @@ public class LocationsController : ControllerBase
         await _locationService.Delete(id);
 
         return NoContent();
+    }
+
+    private ObjectResult ReturnError(Task task)
+    {
+        return StatusCode(500, "Internal server error: " + task.Exception?.Message);
     }
 }

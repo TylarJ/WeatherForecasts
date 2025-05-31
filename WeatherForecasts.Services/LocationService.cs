@@ -57,6 +57,23 @@ public class LocationService : ILocationService
         return location;
     }
 
+    public async Task<Location?> Update(int id)
+    {
+        var location = await Get(id);
+
+        if (location == null)
+            return null;
+
+        // Assuming we want to update the forecasts based on the current weather data
+        var updatedForecasts = await _weatherProvider.GetForecasts(location.Latitude, location.Longitude);
+        location.Forecasts = updatedForecasts;
+
+        _dbContext.Locations.Update(location);
+        await _dbContext.SaveChangesAsync();
+
+        return location;
+    }
+
     public async Task Delete(int id)
     {
         var location = await Get(id);
