@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WeatherForecasts.Common\WeatherForecasts.Common.csproj" />
-    <ProjectReference Include="..\WeatherForecasts.Data.Abstractions\WeatherForecasts.Data.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

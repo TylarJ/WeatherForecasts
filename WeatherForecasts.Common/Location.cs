@@ -6,7 +6,6 @@ public class Location
     public float Latitude { get; set; }
     public float Longitude { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public List<Forecast> Forecasts { get; set; } = new List<Forecast>();
+    public List<Forecast> Forecasts { get; set; } = [];
 }

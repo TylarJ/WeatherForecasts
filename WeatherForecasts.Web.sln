@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecasts.Common", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecasts.Data", "WeatherForecasts.Data\WeatherForecasts.Data.csproj", "{2D951528-5D2A-4735-8550-1F5777446795}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecasts.Data.Abstractions", "WeatherForecasts.Data.Abstractions\WeatherForecasts.Data.Abstractions.csproj", "{423E9BB9-C571-43D1-835E-7AC0AE8BAE30}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecasts.Services", "WeatherForecasts.Services\WeatherForecasts.Services.csproj", "{BC5E8640-E806-4A13-9FA0-D5738F7BFFCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecasts.Services.Abstractions", "WeatherForecasts.Services.Abstractions\WeatherForecasts.Services.Abstractions.csproj", "{25950B7D-8EA7-4216-A377-B1D756787EED}"
@@ -35,10 +33,6 @@ Global
 		{2D951528-5D2A-4735-8550-1F5777446795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D951528-5D2A-4735-8550-1F5777446795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D951528-5D2A-4735-8550-1F5777446795}.Release|Any CPU.Build.0 = Release|Any CPU
-		{423E9BB9-C571-43D1-835E-7AC0AE8BAE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{423E9BB9-C571-43D1-835E-7AC0AE8BAE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{423E9BB9-C571-43D1-835E-7AC0AE8BAE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{423E9BB9-C571-43D1-835E-7AC0AE8BAE30}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC5E8640-E806-4A13-9FA0-D5738F7BFFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC5E8640-E806-4A13-9FA0-D5738F7BFFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC5E8640-E806-4A13-9FA0-D5738F7BFFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU

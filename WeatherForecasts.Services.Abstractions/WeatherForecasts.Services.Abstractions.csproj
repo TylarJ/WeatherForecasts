@@ -18,6 +18,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\WeatherForecasts.Common\WeatherForecasts.Common.csproj" />
+    <ProjectReference Include="..\WeatherForecasts.Data\WeatherForecasts.Data.csproj" />
   </ItemGroup>
 
 </Project>

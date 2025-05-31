@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WeatherForecasts.Common;
-using WeatherForecasts.Data.Abstractions;
+using WeatherForecasts.Services.Abstractions;
 using WeatherForecasts.Web.Models;
 
 namespace WeatherForecasts.Web.Controllers;

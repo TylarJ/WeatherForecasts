@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
 using WeatherForecasts.Common;
-using WeatherForecasts.Data.Abstractions;
+using WeatherForecasts.Services.Abstractions;
 using WeatherForecasts.Services.Configuration;
 using WeatherForecasts.Services.Models;
 

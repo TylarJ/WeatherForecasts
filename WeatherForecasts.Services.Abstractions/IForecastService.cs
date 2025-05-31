@@ -1,6 +1,6 @@
 ﻿using WeatherForecasts.Common;
 
-namespace WeatherForecasts.Data.Abstractions;
+namespace WeatherForecasts.Services.Abstractions;
 
 public interface IForecastService
 {
