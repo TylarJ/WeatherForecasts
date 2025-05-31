@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WeatherForecasts.Data.Abstractions;
 
 namespace WeatherForecasts.Web.Controllers
 {
@@ -12,15 +13,19 @@ namespace WeatherForecasts.Web.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IForecastService _service;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IForecastService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            _service.Get(0, 0);
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

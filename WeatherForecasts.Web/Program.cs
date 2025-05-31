@@ -10,7 +10,7 @@ namespace WeatherForecasts.Web
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services
-                .AddServices()
+                .AddServices(builder.Configuration)
                 .AddDataServices();
 
             builder.Services.AddControllers();
