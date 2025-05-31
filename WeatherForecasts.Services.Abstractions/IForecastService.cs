@@ -4,5 +4,5 @@ namespace WeatherForecasts.Services.Abstractions;
 
 public interface IForecastService
 {
-    Task<Location> Get(float latitude, float longitude);
+    Task<List<Forecast>> Get(float latitude, float longitude);
 }

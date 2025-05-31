@@ -14,7 +14,7 @@ public class LocationService : ILocationService
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Location>> GetAllLocations()
+    public async Task<IEnumerable<Location>> GetAll()
     {
         return await _dbContext.Locations.ToListAsync();
     }

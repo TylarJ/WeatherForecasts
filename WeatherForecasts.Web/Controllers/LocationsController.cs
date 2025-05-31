@@ -20,7 +20,7 @@ public class LocationsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Location>>> GetAll()
     {
-        return await _locationService.GetAllLocations()
+        return await _locationService.GetAll()
             .ContinueWith(task =>
             {
                 if (task.IsFaulted)

@@ -12,6 +12,7 @@ public static class IServiceCollectionExtensions
         return services
             .AddTransient<IForecastService, ForecastService>()
             .AddTransient<ILocationService, LocationService>()
+            .AddTransient<IWeatherProvider, OpenMeteoWeatherProvider>()
             .AddHttpClient()
             .Configure<OpenMeteoConfiguration>(config.GetSection(nameof(OpenMeteoConfiguration)));
     }
