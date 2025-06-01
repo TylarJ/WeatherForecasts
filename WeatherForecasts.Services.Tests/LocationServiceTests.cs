@@ -81,6 +81,23 @@ public class LocationServiceTests
         Assert.Equal(existingLocation.Id, result.Id);
     }
 
+    [Theory]
+    [InlineData(-91, 100)]  // Latitude below valid range
+    [InlineData(91, -100)]  // Latitude above valid range
+    [InlineData(45, -181)]  // Longitude below valid range
+    [InlineData(45, 181)]   // Longitude above valid range
+    public async Task CreateLocation_InvalidCoordinates_ThrowsArgumentOutOfRangeException(float latitude, float longitude)
+    {
+        // Arrange
+        using var context = GetDatabase();
+
+        var weatherProviderMock = new Mock<IWeatherProvider>();
+        var uut = new LocationService(context, weatherProviderMock.Object);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => uut.Create(latitude, longitude));
+    }
+
     [Fact]
     public async Task UpdateLocation_UpdatesForecasts()
     {

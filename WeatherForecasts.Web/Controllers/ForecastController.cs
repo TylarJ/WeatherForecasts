@@ -9,11 +9,11 @@ namespace WeatherForecasts.Web.Controllers;
 [Route("locations/[controller]")]
 public class ForecastController : ControllerBase
 {
-    private readonly IForecastService _forecastService;
+    private readonly IWeatherProvider _weatherProvider;
 
-    public ForecastController(IForecastService forecastService)
+    public ForecastController(IWeatherProvider weatherProvider)
     {
-        _forecastService = forecastService;
+        _weatherProvider = weatherProvider;
     }
 
     [HttpGet]
@@ -21,7 +21,7 @@ public class ForecastController : ControllerBase
     {
         LocationValidator.ValidateCoordinates(location.Latitude, location.Longitude);
 
-        var result = await _forecastService.Get(location.Latitude, location.Longitude);
+        var result = await _weatherProvider.GetForecasts(location.Latitude, location.Longitude);
 
         return Ok(result);
     }

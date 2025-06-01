@@ -16,9 +16,17 @@ public class LocationService : ILocationService
         _weatherProvider = weatherProvider;
     }
 
-    public async Task<IEnumerable<Location>> GetAll()
+    public async Task<IEnumerable<LocationDTO>> GetAll()
     {
-        return await _dbContext.Locations.ToListAsync();
+        return await _dbContext
+            .Locations
+            .Select(l => new LocationDTO
+            {
+                Id = l.Id,
+                Latitude = l.Latitude,
+                Longitude = l.Longitude
+            })
+            .ToListAsync();
     }
 
     public async Task<Location?> Get(int id)

@@ -10,7 +10,6 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration config)
     {
         return services
-            .AddTransient<IForecastService, ForecastService>()
             .AddTransient<ILocationService, LocationService>()
             .AddTransient<IWeatherProvider, OpenMeteoWeatherProvider>()
             .AddHttpClient()
