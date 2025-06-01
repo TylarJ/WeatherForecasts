@@ -11,7 +11,6 @@ public class Forecast
 
     public int LocationId { get; set; }
 
-    // HACK: Cleaner approach is to use a DTO or a separate model for serialization
-    [JsonIgnore]
+    [JsonIgnore] // HACK: Cleaner approach is to use a DTO or a separate model for serialization
     public Location Location { get; set; } = null!;
 }
