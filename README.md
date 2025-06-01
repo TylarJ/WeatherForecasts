@@ -34,7 +34,14 @@ dotnet restore
 
 ### 3. Run the API
 ```sh
+cd WeatherForecasts.Web
 dotnet run
+```
+
+### 4. Access the API
+Open your browser or API client and navigate to:
+```
+http://localhost:5267/swagger/index.html
 ```
 
 ## Unit Testing
