@@ -80,11 +80,9 @@ public class LocationService : ILocationService
 
     public async Task Delete(int id)
     {
-        var location = await Get(id);
+        var location = await Get(id)
+            ?? throw new KeyNotFoundException($"Location with ID {id} not found.");
         
-        if (location == null)
-            throw new KeyNotFoundException($"Location with ID {id} not found.");
-
         _dbContext.Locations.Remove(location);
         await _dbContext.SaveChangesAsync();
     }
