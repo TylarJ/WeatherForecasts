@@ -51,6 +51,7 @@ dotnet test
 ```
 
 ## Improvements & Future Enhancements
+- Extend the API to support more than just the 2-meter temperature.
 - Pagination support for listing locations.
 - Caching for reducing API calls to Open-Meteo.
 - Extended weather data such as precipitation & wind conditions.
