@@ -29,7 +29,7 @@ public class OpenMeteoWeatherProvider : IWeatherProvider
         return response.hourly?.time != null && response.hourly.temperature_2m != null
             ? response.hourly.time.Select((t, i) => new Forecast
             {
-                Date = DateTime.Parse(t),
+                Date = DateTime.Parse(t).ToUniversalTime(),
                 TemperatureCelsius = response.hourly.temperature_2m[i],
                 CreatedAt = DateTime.UtcNow
             })
